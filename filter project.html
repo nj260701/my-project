@@ -1,0 +1,289 @@
+<!doctype Html>
+<html>
+<head>
+<title>
+Mini Project 
+</title>
+
+<style>
+body{
+  background-color:wheat;
+}
+#Heading{
+  text-align: center;
+  font-family: Comic Sans MS;
+  color:brown;
+  padding: 10px;
+  margin-left :30%;
+  margin-right : 30%;
+  font-size: 36pt;
+}
+}
+
+#Steps{
+  font-family: Courier New;
+  font-size:20px;
+}
+
+#layout{
+
+  padding-left:10px;
+}
+
+#myCanvas{
+  border: 1px solid grey;
+  height: 300px;
+ 
+  
+}
+.text{
+  text-align:Center;
+  font-family: Arial;
+  font-size:40px;
+}
+#filters{
+  text-align : center;
+}
+#home{
+  border: 1px solid gray;
+  background-color: burlywood;
+  width: 120px;
+  font-color:brown;
+  font-family: Arial;
+
+
+}
+
+
+</style>
+  </head>
+  <body>
+   <div id= "layout">
+    
+        <h1 id = "Heading"> 
+        <marquee behavior="alternate" direction="right">Welcome to Filter Page  </marquee>
+        </h1>
+          </marquee>
+
+  <p id = "home">
+  <a href= "C:\Users\Neeraj\Desktop\my learning project\home page.html">
+    <img src = "C:\Users\Neeraj\Desktop\my learning project\home.png" width = "20px" height = "20px">Go to Home</a>
+  </p>        
+ <section id="Steps" >
+    <h3> Upload Image </h3>
+   <h3> Chose A Filter </h3>
+   <h3> See the Magic</h3>
+    </section>
+  </div>
+    <div ="upload">
+      <h1 class = "text">Upload image</h1>
+    <canvas id = "myCanvas">
+      
+    </canvas>
+      <p>
+  <input type="file" multiple="false" accept="image/*" id="finput" onchange="upload()" >
+</p>
+      
+      <h1 class = "text"> Chose A Filter </h1>
+     
+  <Div id = "filters">
+    <p>
+      <input type="button" value="Grayscale" onclick="makeGray()" ></p>
+      <p>
+      <input type="button" value="Reddish" onclick="makeRed()" >
+    <input type="button" value="Greenish" onclick="makeGreen()" >
+        <input type="button" value="Bluish" onclick="makeBlue()" ></p>
+      <p>
+    <input type="button" value="BlueGreen" onclick="noRed()" >
+    <input type="button" value="RedGreen" onclick="noBlue()" >
+        <input type="button" value="RedBlue " onclick="noGreen()" ></p>
+  <p>
+    
+      <input type="button" value="RGB effect" onclick="makeRGB()" >
+      </p>
+      <p>
+    
+        <input type="button" value="Reset Image" onclick="reset()" >
+      </p>
+    </div>
+	<p>
+      <script src="https://www.dukelearntoprogram.com/course1/common/js/image/SimpleImage.js" >
+</script>
+    
+  <script>
+  var image , imgGray , imgRed , imgGreen , imgBlue, imgNoGreen, imgNoRed,imgNoBlue, imgRGB = null ;
+
+function upload() {
+  //Get input from file input
+  var fileinput = document.getElementById("finput");
+  //Make new SimpleImage from file input
+  image = new SimpleImage(fileinput);
+  imgGray = new SimpleImage(fileinput);
+  imgRed = new SimpleImage(fileinput);
+  imgGreen = new SimpleImage(fileinput);
+  imgBlue = new SimpleImage(fileinput);
+  imgNoRed = new SimpleImage(fileinput);
+  imgNoGreen = new SimpleImage(fileinput);
+  imgNoBlue = new SimpleImage(fileinput);
+  imgRGB = new SimpleImage(fileinput);
+  
+  
+  //Get canvas
+  var canvas = document.getElementById("myCanvas");
+  //Draw image on canvas
+  image.drawTo(canvas);
+}
+
+
+
+
+function makeGray() {
+  //change all pixels of image to gray
+  for (var pixel of imgGray.values()) {
+    var avg = (pixel.getRed()+pixel.getGreen()+pixel.getBlue())/3;
+    pixel.setRed(avg);
+    pixel.setGreen(avg);
+    pixel.setBlue(avg);
+  }
+  //display new image
+  var canvas = document.getElementById("myCanvas");
+  imgGray.drawTo(canvas);
+}
+
+
+
+function makeRed(){
+  //make all pixel to max red
+  for (var pixel of imgRed.values()){
+    pixel.setRed(255);
+    }
+  //display new image
+  var canvas = document.getElementById("myCanvas");
+ imgRed.drawTo(canvas);
+}
+
+function makeGreen(){
+   for (var pixel of imgGreen.values()){
+   var avg = (pixel.getRed() + pixel.getGreen()+pixel.getBlue())/3;
+   if(avg <128){
+		pixel.setRed(0);
+        pixel.setGreen(2*avg);
+        pixel.setBlue(0);
+    }
+	else{
+		pixel.setRed(2*avg - 255);
+        pixel.setGreen(255);
+        pixel.setBlue(2*avg -255);
+    }
+}
+	
+   //display new image
+  var canvas = document.getElementById("myCanvas");
+ imgGreen.drawTo(canvas);
+}
+
+function makeBlue(){
+   for (var pixel of imgBlue.values()){
+    var avg = (pixel.getRed()+pixel.getGreen()+pixel.getBlue())/3;
+    if(avg < 128){
+        pixel.setRed(0);
+        pixel.setGreen(0);
+        pixel.setBlue(2*avg);
+    }
+    else{
+        pixel.setRed(2*avg - 255);
+        pixel.setGreen(2*avg - 255);
+        pixel.setBlue(255);
+    }
+}
+
+   //display new image
+  var canvas = document.getElementById("myCanvas");
+ imgBlue.drawTo(canvas);
+}
+
+
+function noRed(){
+  // remove all red pixel from image
+for (var pixel of imgNoRed.values()){
+    var newR = 0;
+    pixel.setRed(newR);
+	
+  }
+   //display new image
+  var canvas = document.getElementById("myCanvas");
+  imgNoRed.drawTo(canvas);
+}
+
+function noGreen(){
+  // remove all red pixel from image
+for (var pixel of imgNoGreen.values()){
+    var newR = 0;
+    pixel.setGreen(newR);
+  }
+   //display new image
+  var canvas = document.getElementById("myCanvas");
+ imgNoGreen.drawTo(canvas);
+}
+
+function noBlue(){
+  // remove all red pixel from image
+for (var pixel of imgNoBlue.values()){
+    var newR = 0;
+    pixel.setBlue(newR);
+  }
+
+   //display new image
+  var canvas = document.getElementById("myCanvas");
+ imgNoBlue.drawTo(canvas);
+}
+
+
+
+function makeRGB(){
+  //divide image into 3 parts along width
+  // fill the max R G B respectively
+  w = imgRGB.getWidth();
+  for (var pixel of imgRGB.values()){
+    x= pixel.getX();
+    if(x < w/3){
+      pixel.setRed(255);
+    }
+    if(x >= w/3 && x < 2*w/3){
+      pixel.setGreen(255);
+    }
+    if (x >= 2*w/3 && x <= w){
+      pixel.setBlue(255);
+    }
+  }
+  //display new image
+  var canvas = document.getElementById("myCanvas");
+  imgRGB.drawTo(canvas);
+}
+
+function reset(){
+  
+  //Get input from file input
+  var fileinput = document.getElementById("finput");
+  //Make new SimpleImage from file input
+  image = new SimpleImage(fileinput);
+  //Get canvas
+  var canvas = document.getElementById("myCanvas");
+  //Draw image on canvas
+  image.drawTo(canvas);
+}
+
+
+
+
+  </script>
+
+</p>
+  
+    
+      
+    
+    
+    
+  </body>
+  
